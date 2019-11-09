@@ -17,17 +17,17 @@ impl Color {
 
     pub fn red() -> Color {
         Color {
-            red: 1.0,
-            blue: 0.0,
-            green: 0.0,
+            red: 0.68,
+            blue: 0.8,
+            green: 0.45,
         }
     }
 
     pub fn blue() -> Color {
         Color {
-            red: 0.0,
-            blue: 1.0,
-            green: 0.0,
+            red: 0.10,
+            blue: 0.8,
+            green: 0.2,
         }
     }
 }

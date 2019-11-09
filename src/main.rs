@@ -2,6 +2,7 @@ mod canvas;
 mod color;
 mod hex;
 mod hex_colorer;
+mod hex_map;
 mod layout;
 mod point;
 
@@ -10,9 +11,9 @@ use color::Color;
 use hex::FractionalHex;
 use hex::Hex;
 use hex_colorer::color_of_hex;
+use hex_map::HexMap;
 use layout::Layout;
 use point::Point;
-use std::collections::HashMap;
 use std::fs::File;
 use std::io::prelude::*;
 
@@ -23,7 +24,7 @@ fn main() -> std::io::Result<()> {
     let mut file = File::create(filename)?;
     let mut canvas = Canvas::empty(SIZE, SIZE);
 
-    let mut hex_colors: HashMap<Hex, Color> = HashMap::new();
+    let mut hex_map = HexMap::new();
 
     let layout = Layout::default();
     let pixels: Vec<usize> = (0..canvas.pixels.len()).collect();
@@ -31,7 +32,7 @@ fn main() -> std::io::Result<()> {
         .iter()
         .map(|i| {
             color_of_hex(
-                &mut hex_colors,
+                &mut hex_map,
                 hex_round(layout.pixel_to_hex(Point {
                     x: (i % SIZE as usize) as f64,
                     y: (i / SIZE as usize) as f64,

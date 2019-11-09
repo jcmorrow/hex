@@ -25,6 +25,10 @@ impl Hex {
     pub fn new(q: i64, r: i64) -> Hex {
         Hex { q, r, s: -q - r }
     }
+
+    pub fn origin() -> Hex {
+        Hex { q: 0, r: 0, s: 0 }
+    }
 }
 
 impl Add for Hex {
