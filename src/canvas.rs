@@ -1,22 +1,5 @@
+use super::color::Color;
 use std::vec::Vec;
-
-#[derive(Copy, Clone, Debug)]
-pub struct Color {
-    pub blue: f64,
-    pub green: f64,
-    pub red: f64,
-}
-
-impl Color {
-    pub fn ppm(&self) -> String {
-        return format!(
-            "{} {} {}",
-            (clamp(self.red, 0.0, 1.0) * 255.0).round(),
-            (clamp(self.green, 0.0, 1.0) * 255.0).round(),
-            (clamp(self.blue, 0.0, 1.0) * 255.0).round()
-        );
-    }
-}
 
 #[derive(Debug)]
 pub struct Canvas {
@@ -40,30 +23,6 @@ impl Canvas {
             height,
             pixels,
         }
-    }
-
-    pub fn write_pixel(&mut self, column: usize, row: usize) {
-        let index = row * self.width as usize + column;
-        if index < self.pixels.len() {
-            self.pixels[index] = Color {
-                red: 1.,
-                green: 1.,
-                blue: 1.,
-            };
-        }
-    }
-
-    pub fn pixel_at(&self, column: usize, row: usize) -> Color {
-        let index = row * self.width as usize + column;
-        self.pixels[index]
-    }
-
-    fn write_all_pixels(&mut self, color: &Color) {
-        let mut pixels: Vec<Color> = Vec::with_capacity((self.width * self.height) as usize);
-        for _i in 0..(self.width * self.height) {
-            pixels.push(*color);
-        }
-        self.pixels = pixels;
     }
 
     pub fn render_ppm(&self) -> String {
@@ -108,15 +67,5 @@ impl Canvas {
             strings.push(String::from(string.trim_matches(' ')));
         }
         strings
-    }
-}
-
-pub fn clamp(number: f64, min: f64, max: f64) -> f64 {
-    if number > max {
-        max
-    } else if number < min {
-        min
-    } else {
-        number
     }
 }
