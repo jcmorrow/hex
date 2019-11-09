@@ -34,22 +34,32 @@ impl HexMap {
         let is_axis = hex.r == 0 || hex.s == 0 || hex.q == 0;
         if is_axis {
             let ancestor = self.info(Hex::new(closer_to_zero(hex.q), closer_to_zero(hex.r)));
+            return HexInfo::rand();
             let ancestor2 = self.info(Hex::new(
                 closer_to_zero(closer_to_zero(hex.q)),
                 closer_to_zero(closer_to_zero(hex.r)),
             ));
-            if ancestor.alive == ancestor2.alive {
-                HexInfo { alive: false }
+            if ancestor.alive {
+                HexInfo {
+                    alive: !ancestor2.alive,
+                }
             } else {
-                HexInfo { alive: true }
+                HexInfo {
+                    alive: ancestor2.alive,
+                }
             }
         } else {
             let ancestor1 = self.info(Hex::new(closer_to_zero(hex.q), hex.r));
             let ancestor2 = self.info(Hex::new(hex.q, closer_to_zero(hex.r)));
+            let ancestor3 = self.info(Hex::new(closer_to_zero(hex.q), closer_to_zero(hex.r)));
             if ancestor1.alive == ancestor2.alive {
-                HexInfo { alive: true }
+                HexInfo {
+                    alive: !ancestor3.alive,
+                }
             } else {
-                HexInfo { alive: false }
+                HexInfo {
+                    alive: ancestor3.alive,
+                }
             }
         }
     }

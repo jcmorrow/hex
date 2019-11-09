@@ -25,7 +25,7 @@ impl Layout {
     pub fn default() -> Layout {
         Layout {
             origin: Point { x: 250., y: 250. },
-            size: Point { x: 5., y: 5. },
+            size: Point { x: 1., y: 1. },
             orientation: Orientation::pointy(),
         }
     }
