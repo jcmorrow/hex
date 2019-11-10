@@ -17,7 +17,7 @@ use point::Point;
 use std::fs::File;
 use std::io::prelude::*;
 
-const SIZE: i64 = 500;
+const SIZE: i64 = 2000;
 
 fn main() -> std::io::Result<()> {
     let filename = "output/test.ppm";

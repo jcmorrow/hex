@@ -3,6 +3,8 @@ use super::point::Point;
 use noise::{NoiseFn, Perlin};
 use rand::prelude::*;
 
+const NOISE_SCALE: f64 = 100.;
+
 #[derive(Debug, Clone, Copy)]
 pub struct Layout {
     pub orientation: Orientation,
@@ -38,18 +40,17 @@ impl Layout {
         let mut rng = rand::thread_rng();
         let noise_x: f64 = rng.gen();
         let noise_y: f64 = rng.gen();
-        let new_x: f64 = p.x + (noise_x * 10. - 5.);
-        let new_y: f64 = p.y + (noise_y * 10. - 5.);
+        let new_x: f64 = p.x + (noise_x * NOISE_SCALE * 2. - NOISE_SCALE);
+        let new_y: f64 = p.y + (noise_y * NOISE_SCALE * 2. - NOISE_SCALE);
         let fuzzy_p = Point { x: new_x, y: new_y };
         self.pixel_to_hex(fuzzy_p)
     }
 
     pub fn perlin_pixel_to_hex(self, p: Point) -> FractionalHex {
         let mut rng = rand::thread_rng();
-        let noise_x = self.perlin.get([p.x / 500., p.y / 500.]);
-        println!("{:?}", noise_x);
-        let new_x: f64 = p.x + noise_x * 50. - 100.;
-        let new_y: f64 = p.y + noise_x * 50. - 100.;
+        let noise_x = self.perlin.get([p.x / 100., p.y / 100.]);
+        let new_x: f64 = p.x + (noise_x * NOISE_SCALE * 2. - NOISE_SCALE);
+        let new_y: f64 = p.y + (noise_x * NOISE_SCALE * 2. - NOISE_SCALE);
         let fuzzy_p = Point { x: new_x, y: new_y };
         self.pixel_to_hex(fuzzy_p)
     }
