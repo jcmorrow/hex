@@ -34,7 +34,7 @@ impl HexMap {
         let is_axis = hex.r == 0 || hex.s == 0 || hex.q == 0;
         if is_axis {
             let ancestor = self.info(Hex::new(closer_to_zero(hex.q), closer_to_zero(hex.r)));
-            // return HexInfo::rand();
+            return HexInfo::rand();
             let ancestor2 = self.info(Hex::new(
                 closer_to_zero(closer_to_zero(hex.q)),
                 closer_to_zero(closer_to_zero(hex.r)),

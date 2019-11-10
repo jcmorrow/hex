@@ -1,5 +1,6 @@
 use super::hex::FractionalHex;
 use super::point::Point;
+use rand::prelude::*;
 
 #[derive(Debug, Clone, Copy)]
 pub struct Layout {
@@ -25,9 +26,19 @@ impl Layout {
     pub fn default() -> Layout {
         Layout {
             origin: Point { x: 250., y: 250. },
-            size: Point { x: 10., y: 10. },
+            size: Point { x: 5., y: 5. },
             orientation: Orientation::pointy(),
         }
+    }
+
+    pub fn fuzzy_pixel_to_hex(self, p: Point) -> FractionalHex {
+        let mut rng = rand::thread_rng();
+        let noise_x: f64 = rng.gen();
+        let noise_y: f64 = rng.gen();
+        let new_x: f64 = p.x + (noise_x * 10. - 5.);
+        let new_y: f64 = p.y + (noise_y * 10. - 5.);
+        let fuzzy_p = Point { x: new_x, y: new_y };
+        self.pixel_to_hex(fuzzy_p)
     }
 
     pub fn pixel_to_hex(self, p: Point) -> FractionalHex {

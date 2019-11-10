@@ -33,7 +33,7 @@ fn main() -> std::io::Result<()> {
         .map(|i| {
             color_of_hex(
                 &mut hex_map,
-                hex_round(layout.pixel_to_hex(Point {
+                hex_round(layout.fuzzy_pixel_to_hex(Point {
                     x: (i % SIZE as usize) as f64,
                     y: (i / SIZE as usize) as f64,
                 })),

@@ -5,9 +5,9 @@ use super::hex_map::HexMap;
 pub fn color_of_hex(hex_map: &mut HexMap, hex: Hex) -> Color {
     let info = hex_map.info(hex);
     if info.alive {
-        Color::red()
+        Color::alive()
     } else {
-        Color::blue()
+        Color::dead()
     }
     // hex_colors
     //     .entry(hex)

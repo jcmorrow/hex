@@ -1,4 +1,5 @@
 #[derive(Copy, Clone, Debug)]
+
 pub struct Color {
     pub blue: f64,
     pub green: f64,
@@ -15,19 +16,19 @@ impl Color {
         );
     }
 
-    pub fn red() -> Color {
+    pub fn alive() -> Color {
         Color {
-            red: 0.68,
-            blue: 0.8,
-            green: 0.45,
+            red: 235. / 256.,
+            green: 231. / 256.,
+            blue: 82. / 256.,
         }
     }
 
-    pub fn blue() -> Color {
+    pub fn dead() -> Color {
         Color {
-            red: 0.10,
-            blue: 0.8,
-            green: 0.2,
+            red: 18. / 256.,
+            green: 128. / 256.,
+            blue: 220. / 256.,
         }
     }
 }
