@@ -1,5 +1,6 @@
 use super::hex::FractionalHex;
 use super::point::Point;
+use noise::{NoiseFn, Perlin};
 use rand::prelude::*;
 
 #[derive(Debug, Clone, Copy)]
@@ -7,6 +8,7 @@ pub struct Layout {
     pub orientation: Orientation,
     pub size: Point,
     pub origin: Point,
+    pub perlin: Perlin,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -26,8 +28,9 @@ impl Layout {
     pub fn default() -> Layout {
         Layout {
             origin: Point { x: 250., y: 250. },
-            size: Point { x: 5., y: 5. },
+            size: Point { x: 10., y: 10. },
             orientation: Orientation::pointy(),
+            perlin: Perlin::new(),
         }
     }
 
@@ -37,6 +40,16 @@ impl Layout {
         let noise_y: f64 = rng.gen();
         let new_x: f64 = p.x + (noise_x * 10. - 5.);
         let new_y: f64 = p.y + (noise_y * 10. - 5.);
+        let fuzzy_p = Point { x: new_x, y: new_y };
+        self.pixel_to_hex(fuzzy_p)
+    }
+
+    pub fn perlin_pixel_to_hex(self, p: Point) -> FractionalHex {
+        let mut rng = rand::thread_rng();
+        let noise_x = self.perlin.get([p.x / 500., p.y / 500.]);
+        println!("{:?}", noise_x);
+        let new_x: f64 = p.x + noise_x * 50. - 100.;
+        let new_y: f64 = p.y + noise_x * 50. - 100.;
         let fuzzy_p = Point { x: new_x, y: new_y };
         self.pixel_to_hex(fuzzy_p)
     }
