@@ -4,3 +4,4 @@ Hex Automata
 ![Ordered](/output/ordered.png)
 ![Zoomed](/output/zoomed.png)
 ![Fuzzy](/output/fuzzy.png)
+![Perlin](/output/perlin.png)
